@@ -39,8 +39,8 @@ run:
 		--volume $(PROJECT_SRC_DIR):$(WORKDIR) \
 		$(IMAGE_NAME)
 stop:
-	docker stop $(MONGO_CONTAINER_NAME)
 	docker stop $(CONTAINER_NAME)
+	docker stop $(MONGO_CONTAINER_NAME)
 log: 
 	docker logs --follow $(CONTAINER_NAME)
 exec:
