@@ -8,11 +8,10 @@ IMAGE_NAME = $(PROJECT_NAME)
 CONTAINER_NAME = $(PROJECT_NAME)
 MONGO_CONTAINER_NAME = $(PROJECT_NAME)_mongo
 
+YAPI_VERSION = v1.3.6
+
 EXPOSE_PORT = 3000
 CONTAINER_PORT = 3000
-
-INSTALL_EXPOSE_PORT = 9090
-INSTALL_CONTAINER_PORT = 9090
 
 build:
 	docker build --tag $(IMAGE_NAME) $(DOCKERFILE_DIR)
@@ -21,13 +20,13 @@ install:
 		--name $(MONGO_CONTAINER_NAME) \
 		--volume $(MONGO_DIR):/data/db \
 		mongo:latest
-	docker run --rm \
-		--name $(CONTAINER_NAME)_install \
+	sleep 3
+	-docker run --rm \
 		--link $(MONGO_CONTAINER_NAME):db \
-		--publish $(INSTALL_EXPOSE_PORT):$(INSTALL_CONTAINER_PORT) \
 		--volume $(PROJECT_SRC_DIR):$(WORKDIR) \
 		--entrypoint yapi \
-		$(IMAGE_NAME) install -v v1.3.6
+		$(IMAGE_NAME) install -v $(YAPI_VERSION)
+	docker stop $(MONGO_CONTAINER_NAME)
 run:
 	docker run --detach --rm \
 		--name $(MONGO_CONTAINER_NAME) \
@@ -42,9 +41,6 @@ run:
 stop:
 	docker stop $(MONGO_CONTAINER_NAME)
 	docker stop $(CONTAINER_NAME)
-stopins:
-	docker stop $(MONGO_CONTAINER_NAME)	
-	docker stop $(CONTAINER_NAME)_install
 log: 
 	docker logs --follow $(CONTAINER_NAME)
 exec:
