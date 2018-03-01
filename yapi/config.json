@@ -2,8 +2,8 @@
     "port": "3000",
     "adminAccount": "admin@admin.com",
     "db": {
-      "servername": "127.0.0.1",
-      "DATABASE":  "db",
+      "servername": "db",
+      "DATABASE":  "yapi",
       "port": 27017
     },
     "mail": {

@@ -21,14 +21,13 @@ install:
 		--name $(MONGO_CONTAINER_NAME) \
 		--volume $(MONGO_DIR):/data/db \
 		mongo:latest
-	docker run --detach --rm \
+	docker run --rm \
 		--name $(CONTAINER_NAME)_install \
 		--link $(MONGO_CONTAINER_NAME):db \
 		--publish $(INSTALL_EXPOSE_PORT):$(INSTALL_CONTAINER_PORT) \
 		--volume $(PROJECT_SRC_DIR):$(WORKDIR) \
-		--workdir / \
 		--entrypoint yapi \
-		$(IMAGE_NAME) server
+		$(IMAGE_NAME) install -v v1.3.6
 run:
 	docker run --detach --rm \
 		--name $(MONGO_CONTAINER_NAME) \
