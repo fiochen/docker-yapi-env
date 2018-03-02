@@ -1,4 +1,4 @@
-DOCKERFILE_DIR = $(shell pwd)/docker_image
+DOCKERFILE_DIR = $(shell pwd)
 PROJECT_SRC_DIR = $(shell pwd)/yapi
 MONGO_DIR = $(shell pwd)/mongo/db
 WORKDIR = /my-yapi
