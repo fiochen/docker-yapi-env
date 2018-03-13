@@ -1,0 +1,35 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: yapi_mongodb
+    volumes:
+      - ./mongo/db:/data/db
+  web:
+    build: ./
+    image: yapi
+    container_name: yapi_web
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./yapi:/my-yapi
+  install:
+    build: ./
+    image: yapi
+    depends_on:
+      - mongodb
+    volumes:
+      - ./yapi:/my-yapi
+    entrypoint: yapi
+    command: install -v v1.3.7
+  update:
+    build: ./
+    image: yapi
+    depends_on:
+      - mongodb
+    volumes:
+      - ./yapi:/my-yapi
+    entrypoint: yapi
+    command: update
