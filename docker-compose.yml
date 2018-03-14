@@ -6,8 +6,7 @@ services:
     volumes:
       - ./mongo/db:/data/db
   web:
-    build: ./
-    image: yapi
+    image: fiochen227/yapi
     container_name: yapi_web
     depends_on:
       - mongodb
@@ -16,8 +15,7 @@ services:
     volumes:
       - ./yapi:/my-yapi
   install:
-    build: ./
-    image: yapi
+    image: fiochen227/yapi
     depends_on:
       - mongodb
     volumes:
@@ -25,8 +23,7 @@ services:
     entrypoint: yapi
     command: install -v v1.3.7
   update:
-    build: ./
-    image: yapi
+    image: fiochen227/yapi
     depends_on:
       - mongodb
     volumes:
